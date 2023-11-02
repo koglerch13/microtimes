@@ -11,8 +11,6 @@ public class TimeOnlyStringConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        Debug.WriteLine("Convert");
-        Debug.WriteLine(value);
         var time = value as TimeOnly?;
 
         if (time == null)
@@ -23,8 +21,6 @@ public class TimeOnlyStringConverter : IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        Debug.WriteLine("ConvertBack");
-        Debug.WriteLine(value);
         var timeString = value as string;
         if (string.IsNullOrEmpty(timeString))
             return null;

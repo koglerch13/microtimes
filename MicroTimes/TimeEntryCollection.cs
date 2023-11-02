@@ -1,16 +1,36 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MicroTimes;
 
-public class TimeEntryCollection
+public class TimeEntryCollection : IDisposable
 {
+    public event EventHandler? Changed;
+    
     private readonly Dictionary<DateOnly, DayViewModel> _allTimeEntries;
 
     public TimeEntryCollection(Dictionary<DateOnly, DayViewModel> allTimeEntries)
     {
         _allTimeEntries = allTimeEntries;
+        foreach (var entry in _allTimeEntries)
+        {
+            entry.Value.DataChanged += OnDayChanged;
+        }
+    }
+
+    public void Dispose()
+    {
+        foreach (var entry in _allTimeEntries)
+        {
+            entry.Value.DataChanged -= OnDayChanged;
+        }
+    }
+
+    public ReadOnlyDictionary<DateOnly, DayViewModel> GetAllEntries()
+    {
+        return _allTimeEntries.AsReadOnly();
     }
 
     public DayViewModel GetForDate(DateOnly date)
@@ -32,13 +52,19 @@ public class TimeEntryCollection
 
     private DayViewModel GetDayViewModel(DateOnly date)
     {
-        var viewModel = _allTimeEntries.GetValueOrDefault(date);
-        if (viewModel == null)
+        var day = _allTimeEntries.GetValueOrDefault(date);
+        if (day == null)
         {
-            viewModel = new DayViewModel(date, new ObservableCollection<TimeEntryViewModel>());
-            _allTimeEntries[date] = viewModel;
+            day = new DayViewModel(date, new ObservableCollection<TimeEntryViewModel>());
+            day.DataChanged += OnDayChanged;
+            _allTimeEntries[date] = day;
         }
 
-        return viewModel;
+        return day;
+    }
+    
+    private void OnDayChanged(object? sender, EventArgs e)
+    {
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 }

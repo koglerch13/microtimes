@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -215,7 +216,16 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
     {
         _filePath = await OpenFile();
         _timeEntryCollection = await _parser.ParseFile(_filePath);
+        _timeEntryCollection.Changed += OnTimeEntryCollectionChanged;
         OtherEntriesToday = _timeEntryCollection.GetForDate(TODAY);
+    }
+
+    private void OnTimeEntryCollectionChanged(object? sender, EventArgs e)
+    {
+        if (_filePath == null || !File.Exists(_filePath))
+            return;
+        
+        _ = _parser.WriteFile(_timeEntryCollection, _filePath);
     }
 
     private async Task<string> OpenFile()

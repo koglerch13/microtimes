@@ -9,8 +9,51 @@ namespace MicroTimes;
 
 public class Parser
 {
-    private static readonly Regex LineRegex = new Regex(@"(\d\d\.\d\d\.\d\d\d\d)\s+(\d\d:\d\d\s+)?(\d\d:\d\d\s+)?(.*)");
+    private static readonly Regex LineRegex = new(@"(\d\d\.\d\d\.\d\d\d\d)\s+(\d\d:\d\d\s+)?(\d\d:\d\d\s+)?(.*)");
 
+    public async Task WriteFile(TimeEntryCollection timeEntryCollection, string path)
+    {
+        var allLines = CreateLines(timeEntryCollection);
+        await File.WriteAllLinesAsync(path, allLines);
+    }
+
+    private List<string> CreateLines(TimeEntryCollection timeEntryCollection)
+    {
+        var lines = new List<string>();
+        foreach (var item in timeEntryCollection.GetAllEntries())
+        {
+            var linesForDay = CreateLines(item.Value);
+            lines.AddRange(linesForDay);
+        }
+
+        return lines;
+    }
+
+    private List<string> CreateLines(DayViewModel day)
+    {
+        var lines = new List<string>();
+        foreach (var item in day.Entries)
+        {
+            var line = CreateLine(item);
+            lines.Add(line);
+        }
+
+        return lines;
+    }
+
+    private string CreateLine(TimeEntryViewModel timeEntryViewModel)
+    {
+        var parts = new string?[]
+        {
+            timeEntryViewModel.Date.ToString("dd.MM.yyyy"),
+            timeEntryViewModel.StartTime?.ToString("hh:mm"),
+            timeEntryViewModel.EndTime?.ToString("hh:mm"),
+            timeEntryViewModel.Description
+        }.Where(x => x != null);
+
+        return string.Join(" ", parts);
+    }
+    
     public async Task<TimeEntryCollection> ParseFile(string path)
     {
         var timeEntries = await ParseLines(path);

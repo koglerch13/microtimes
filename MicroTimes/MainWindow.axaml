@@ -113,7 +113,6 @@
             </ScrollViewer>
         </Grid>
         
-                   
         <StackPanel Grid.Row="3" 
                     Orientation="Horizontal">
             <Button Content="Add"
