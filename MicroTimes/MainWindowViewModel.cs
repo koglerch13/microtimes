@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -216,11 +216,17 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
     {
         _filePath = await OpenFile();
         _timeEntryCollection = await _parser.ParseFile(_filePath);
-        _timeEntryCollection.Changed += OnTimeEntryCollectionChanged;
+
+        Observable.FromEventPattern<EventHandler, EventArgs>(
+            h => _timeEntryCollection.Changed += h,
+            h => _timeEntryCollection.Changed -= h)
+            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Subscribe(OnTimeEntryCollectionChanged);
+
         OtherEntriesToday = _timeEntryCollection.GetForDate(TODAY);
     }
 
-    private void OnTimeEntryCollectionChanged(object? sender, EventArgs e)
+    private void OnTimeEntryCollectionChanged(EventPattern<EventArgs>e )
     {
         if (_filePath == null || !File.Exists(_filePath))
             return;

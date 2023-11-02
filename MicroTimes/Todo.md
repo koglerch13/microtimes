@@ -1,7 +1,6 @@
 # TODO
 
 ## Basic functionality
-- Save/read from file
 - Basic styling
 
 ## Later

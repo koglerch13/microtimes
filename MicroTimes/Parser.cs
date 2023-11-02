@@ -19,8 +19,12 @@ public class Parser
 
     private List<string> CreateLines(TimeEntryCollection timeEntryCollection)
     {
+        var entries = timeEntryCollection
+            .GetAllEntries()
+            .OrderBy(x => x.Key);
+        
         var lines = new List<string>();
-        foreach (var item in timeEntryCollection.GetAllEntries())
+        foreach (var item in entries)
         {
             var linesForDay = CreateLines(item.Value);
             lines.AddRange(linesForDay);
@@ -31,8 +35,12 @@ public class Parser
 
     private List<string> CreateLines(DayViewModel day)
     {
+        var entries = day
+            .Entries
+            .OrderBy(x => x.StartTime);
+        
         var lines = new List<string>();
-        foreach (var item in day.Entries)
+        foreach (var item in entries)
         {
             var line = CreateLine(item);
             lines.Add(line);
@@ -46,8 +54,8 @@ public class Parser
         var parts = new string?[]
         {
             timeEntryViewModel.Date.ToString("dd.MM.yyyy"),
-            timeEntryViewModel.StartTime?.ToString("hh:mm"),
-            timeEntryViewModel.EndTime?.ToString("hh:mm"),
+            timeEntryViewModel.StartTime?.ToString("HH:mm"),
+            timeEntryViewModel.EndTime?.ToString("HH:mm"),
             timeEntryViewModel.Description
         }.Where(x => x != null);
 
