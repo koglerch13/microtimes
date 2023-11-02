@@ -1,0 +1,127 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MicroTimes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MicroTimes.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        xmlns:converter="clr-namespace:MicroTimes.Converters"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="400"
+        Height="600"
+        x:Name="MainWindowElement"
+        Title="MicroTimes">
+
+    <Window.Resources>
+        <system:String x:Key="TimeSpanFormat">{0:hh\:mm}</system:String>
+        <converter:TimeOnlyStringConverter x:Key="TimeOnlyStringConverter"/>
+    </Window.Resources>
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        
+        <!-- Running Tasks section -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, 150, Auto">
+            <StackPanel Grid.Column="0">
+                <TextBox Watermark="No description..."
+                         Text="{Binding ActiveEntry.Description}"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" IsVisible="{Binding ActiveEntry.IsRunning}">
+                <TextBlock Text="{Binding ActiveEntry.ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}"/>
+                <TextBlock Text="{Binding ActiveEntry.StartTime}"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2">
+                <Button Content="Start"
+                        Command="{Binding StartActiveEntryCommand}"
+                        IsVisible="{Binding ActiveEntry.IsNotStarted}"/>
+                <Button Content="Stop"
+                        Command="{Binding StopActiveEntryCommand}"
+                        IsVisible="{Binding ActiveEntry.IsRunning}"/>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <CalendarDatePicker SelectedDate="{Binding SelectedDay}"/>
+        </Grid>
+        
+        <!-- Task list section -->
+        <Grid Grid.Row="2">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding OtherEntriesToday.Entries}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid Margin="2"
+                                      ColumnDefinitions="*, Auto, Auto">
+                                    <TextBox Grid.Column="0" 
+                                             Watermark="No description..."
+                                             Text="{Binding Description}"/>
+                                    
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}" 
+                                                   IsVisible="{Binding IsFinished}"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Text="{Binding StartTime, Converter={StaticResource TimeOnlyStringConverter}}"
+                                                     GotFocus="TimeInput_OnFocus"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBox Text="{Binding EndTime, Converter={StaticResource TimeOnlyStringConverter}}"
+                                                     GotFocus="TimeInput_OnFocus"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2" 
+                                                Orientation="Horizontal">
+                                        <Button Content="Restart"
+                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).RestartEntryCommand}"
+                                                CommandParameter="{Binding}"
+                                                IsVisible="{Binding IsFinished}"/>
+                                        <Button Content="Start" 
+                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).StartEntryCommand}"
+                                                CommandParameter="{Binding }"
+                                                IsVisible="{Binding IsNotStarted}"/>
+                                        <Button Content="Resume"
+                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).ResumeEntryCommand}"
+                                                CommandParameter="{Binding}"
+                                                IsVisible="{Binding IsRunning}"/>
+                                        <Button Content="Delete"
+                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).DeleteEntryCommand}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Border BorderThickness="2" 
+                                        BorderBrush="Yellow" 
+                                        IsHitTestVisible="False" 
+                                        IsVisible="{Binding IsRunning}"
+                                        Background="Transparent"/>
+                                <Border BorderThickness="2" 
+                                        BorderBrush="Red" 
+                                        IsHitTestVisible="False" 
+                                        IsVisible="{Binding !IsValid}"
+                                        Background="Transparent"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        
+                   
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal">
+            <Button Content="Add"
+                    Command="{Binding AddTodoEntryCommand}"/>
+            <TextBlock>
+                <Run Text="Total time:"/>
+                <Run Text="{Binding OtherEntriesToday.TotalTime, StringFormat={StaticResource TimeSpanFormat}}"/>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>
