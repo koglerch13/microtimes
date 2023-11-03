@@ -229,6 +229,15 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
         _timeEntryCollection = await _parser.ParseFile(_filePath);
         
         OtherEntriesToday = _timeEntryCollection.GetForDate(TODAY);
+        var runningEntry = OtherEntriesToday
+            .Entries
+            .FirstOrDefault(x => x.IsRunning);
+        
+        if (runningEntry != null)
+        {
+            ResumeEntry(runningEntry);
+        }
+        
         IsLoading = false;
     }
     
