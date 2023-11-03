@@ -2,11 +2,13 @@
 
 ## Basic functionality
 - Basic styling
+- Add line-wrapping to text input
 
 ## Later
 - Readme
 - Icon
 - Shortcuts
+- Style calendar
 
 ## Maybe
 - Group items with same description

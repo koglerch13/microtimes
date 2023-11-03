@@ -12,115 +12,489 @@
         Width="400"
         Height="600"
         x:Name="MainWindowElement"
-        Title="MicroTimes">
-
-    <Window.Resources>
-        <system:String x:Key="TimeSpanFormat">{0:hh\:mm}</system:String>
-        <converter:TimeOnlyStringConverter x:Key="TimeOnlyStringConverter"/>
-    </Window.Resources>
+        Title="µtimes">
+    
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Icons.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <system:String x:Key="TimeSpanFormat">{0:hh\:mm}</system:String>
+            <system:String x:Key="DateFormat">{0:dd.MM.yyyy}</system:String>
+            <converter:TimeOnlyStringConverter x:Key="TimeOnlyStringConverter"/>
+            
+            <!-- Themeable vars: -->
+            <Color x:Key="ActiveAreaBackgroundColor">#2f3137</Color>
+            <Color x:Key="ActiveAreaBorderColor">#2f3137</Color>
+            <Thickness x:Key="ActiveAreaBorder">0</Thickness>
+            <Thickness x:Key="ActiveAreaPadding">8, 10, 10, 10</Thickness>
+            
+            <Color x:Key="ActiveDescriptionColor">#fefffe</Color>
+            <Color x:Key="ActiveDescriptionSelectionColor">#fefffe</Color>
+            <Color x:Key="ActiveDescriptionSelectionBackgroundColor">#ca7d7f</Color>
+            <system:Double x:Key="ActiveDescriptionFontSize">14</system:Double>
+            <system:Double x:Key="ActiveDescriptionHeight">54</system:Double>
+            <Color x:Key="ActiveDescriptionPlaceholderColor">#e1e1e1</Color>
+            
+            <Color x:Key="ActiveElapsedTimeColor">#fefffe</Color>
+            <system:Double x:Key="ActiveElapsedTimeFontSize">27</system:Double>
+            
+            <Color x:Key="ActiveStartTimeColor">#fefffe</Color>
+            <system:Double x:Key="ActiveStartTimeFontSize">12</system:Double>
+            
+            <Thickness x:Key="ActiveToggleButtonBorder">0</Thickness>    
+            <Thickness x:Key="ActiveToggleButtonPadding">4</Thickness>    
+            <CornerRadius x:Key="ActiveToggleButtonRadius">30</CornerRadius>
+            <Color x:Key="ActiveToggleButtonColor">#fefffe</Color>
+            <Color x:Key="ActiveToggleButtonBackgroundColor">#d54e50</Color>
+            <Color x:Key="ActiveToggleButtonBorderColor">Transparent</Color>
+            <system:Double x:Key="ActiveToggleButtonWidth">54</system:Double>
+            <system:Double x:Key="ActiveToggleButtonHeight">54</system:Double>
+            
+            <Color x:Key="ActiveToggleButtonColorHover">#fefffe</Color>
+            <Color x:Key="ActiveToggleButtonBackgroundColorHover">#ca7d7f</Color>
+            <Color x:Key="ActiveToggleButtonBorderColorHover">#ca7d7f</Color>
+            
+            <Color x:Key="ActiveToggleButtonColorPressed">#fefffe</Color>
+            <Color x:Key="ActiveToggleButtonBackgroundColorPressed">#ca7d7f</Color>
+            <Color x:Key="ActiveToggleButtonBorderColorPressed">#ca7d7f</Color>
+            
+            <Thickness x:Key="SelectedDayButtonBorder">0</Thickness>    
+            <Thickness x:Key="SelectedDayButtonPadding">4,2</Thickness>    
+            <Thickness x:Key="SelectedDayButtonMargin">0,4</Thickness>    
+            <CornerRadius x:Key="SelectedDayButtonRadius">2</CornerRadius>
+            <system:Double x:Key="SelectedDayFontSize">14</system:Double>
+            
+            <Color x:Key="SelectedDayButtonColor">#4b4a4a</Color>
+            <Color x:Key="SelectedDayButtonBackgroundColor">#fefffe</Color>
+            <Color x:Key="SelectedDayButtonBorderColor">#fefffe</Color>
+            <Color x:Key="SelectedDayButtonColorHover">#4b4a4a</Color>
+            <Color x:Key="SelectedDayButtonBackgroundColorHover">#e1e1e1</Color>
+            <Color x:Key="SelectedDayButtonBorderColorHover">#fefffe</Color>
+            <Color x:Key="SelectedDayButtonColorPressed">#4b4a4a</Color>
+            <Color x:Key="SelectedDayButtonBackgroundColorPressed">#e1e1e1</Color>
+            <Color x:Key="SelectedDayButtonBorderColorPressed">#fefffe</Color>
+            
+            <Thickness x:Key="AddEntryButtonBorder">0</Thickness>    
+            <Thickness x:Key="AddEntryButtonPadding">4</Thickness>    
+            <Thickness x:Key="AddEntryButtonMargin">8</Thickness>    
+            <CornerRadius x:Key="AddEntryButtonRadius">30</CornerRadius>
+            <system:Double x:Key="AddEntryButtonWidth">40</system:Double>
+            <system:Double x:Key="AddEntryButtonHeight">40</system:Double>
+            
+            <Color x:Key="AddEntryButtonColor">#fefffe</Color>
+            <Color x:Key="AddEntryButtonBackgroundColor">#d54e50</Color>
+            <Color x:Key="AddEntryButtonBorderColor">#d54e50</Color>
+            <Color x:Key="AddEntryButtonColorHover">#fefffe</Color>
+            <Color x:Key="AddEntryButtonBackgroundColorHover">#ca7d7f</Color>
+            <Color x:Key="AddEntryButtonBorderColorHover">#ca7d7f</Color>
+            <Color x:Key="AddEntryButtonColorPressed">#fefffe</Color>
+            <Color x:Key="AddEntryButtonBackgroundColorPressed">#ca7d7f</Color>
+            <Color x:Key="AddEntryButtonBorderColorPressed">#ca7d7f</Color>
+            
+            <Color x:Key="TotalTimeColor">#4b4a4a</Color>
+            <system:Double x:Key="TotalTimeFontSize">16</system:Double>
+            <Thickness x:Key="TotalTimeMargin">0,4,8,8</Thickness>    
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Window.Styles>
+        <!-- Active entry area -->
+        <Style Selector="Border#ActiveEntryArea">
+            <Setter Property="Background" Value="{DynamicResource ActiveAreaBackgroundColor}"/>
+            <Setter Property="Padding" Value="{DynamicResource ActiveAreaPadding}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveAreaBorderColor}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource ActiveAreaBorder}"/>
+        </Style>
+        
+        <!-- Active entry description -->
+        <Style Selector="TextBox#ActiveEntryDescription">
+            <Setter Property="Height" Value="{DynamicResource ActiveDescriptionHeight}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+            <Setter Property="SelectionBrush" Value="{DynamicResource ActiveDescriptionSelectionBackgroundColor}"/>
+            <Setter Property="SelectionForegroundBrush" Value="{DynamicResource ActiveDescriptionSelectionColor}"/>
+            <Setter Property="FontSize" Value="{DynamicResource ActiveDescriptionFontSize}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource ActiveDescriptionColor}"/>
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:focus">
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:pointerover /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:focus /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+        </Style>
+        
+        <!-- Active entry elapsed time -->
+        <Style Selector="TextBlock#ActiveEntryElapsedTime">
+            <Setter Property="FontSize" Value="{DynamicResource ActiveElapsedTimeFontSize}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ActiveElapsedTimeColor}"/>
+        </Style>
+        
+        <!-- Active entry start time -->
+        <Style Selector="TextBlock#ActiveEntryStartTime">
+            <Setter Property="FontSize" Value="{DynamicResource ActiveStartTimeFontSize}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ActiveStartTimeColor}"/>
+        </Style>
+        
+        <!-- Active entry toggle button -->
+        <Style Selector="Button.ActiveEntryToggleButton">
+            <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColor}"/>
+            <Setter Property="CornerRadius" Value="{DynamicResource ActiveToggleButtonRadius}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource ActiveToggleButtonBorder}"/>
+            <Setter Property="Padding" Value="{DynamicResource ActiveToggleButtonPadding}"/>
+            <Setter Property="Height" Value="{DynamicResource ActiveToggleButtonHeight}"/>
+            <Setter Property="Width" Value="{DynamicResource ActiveToggleButtonWidth}"/>
+        </Style>
+        <Style Selector="Button.ActiveEntryToggleButton Path">
+            <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColor}"/>
+        </Style>
+        
+        <Style Selector="Button.ActiveEntryToggleButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColorHover}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColorHover}"/>
+        </Style>
 
-    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        <Style Selector="Button.ActiveEntryToggleButton:pointerover Path">
+            <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColorHover}"/>
+        </Style>
         
-        <!-- Running Tasks section -->
-        <Grid Grid.Row="0" ColumnDefinitions="*, 150, Auto">
-            <StackPanel Grid.Column="0">
-                <TextBox Watermark="No description..."
-                         Text="{Binding ActiveEntry.Description}"/>
-            </StackPanel>
+        <Style Selector="Button.ActiveEntryToggleButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColorPressed}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColorPressed}"/>
+        </Style>
+
+        <Style Selector="Button.ActiveEntryToggleButton:pressed Path">
+            <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColorPressed}"/>
+        </Style>
+        
+        <!-- Date picker -->
+        <Style Selector="Button#DatePickerButton">
+            <Setter Property="Margin" Value="{DynamicResource SelectedDayButtonMargin}"/>
+            <Setter Property="CornerRadius" Value="{DynamicResource SelectedDayButtonRadius}"/>
+            <Setter Property="Padding" Value="{DynamicResource SelectedDayButtonPadding}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource SelectedDayButtonBorder}"/>
+            <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColor}"/>
+        </Style>
+        
+        <Style Selector="Button#DatePickerButton TextBlock#DatePickerButtonText">
+            <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColor}"/>
+            <Setter Property="FontSize" Value="{DynamicResource SelectedDayFontSize}"/>
+        </Style>
+        
+        <Style Selector="Button#DatePickerButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColorHover}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColorHover}"/>
+        </Style>
+        
+        <Style Selector="Button#DatePickerButton:pointerover TextBlock#DatePickerButtonText" >
+            <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColorHover}"/>
+        </Style>
+        
+        <Style Selector="Button#DatePickerButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColorPressed}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColorPressed}"/>
+        </Style>
+        
+        <Style Selector="Button#DatePickerButton:pointerover TextBlock#DatePickerButtonText" >
+            <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColorPressed}"/>
+        </Style>
+        
+        <!-- Add entry button -->
+         <Style Selector="Button#AddEntryButton">
+             <Setter Property="Margin" Value="{DynamicResource AddEntryButtonMargin}"/>
+             <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColor}"/>
+            <Setter Property="CornerRadius" Value="{DynamicResource AddEntryButtonRadius}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource AddEntryButtonBorder}"/>
+            <Setter Property="Padding" Value="{DynamicResource AddEntryButtonPadding}"/>
+            <Setter Property="Height" Value="{DynamicResource AddEntryButtonHeight}"/>
+            <Setter Property="Width" Value="{DynamicResource AddEntryButtonWidth}"/>
+        </Style>
+        <Style Selector="Button#AddEntryButton Path">
+            <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColor}"/>
+        </Style>
+        
+        <Style Selector="Button#AddEntryButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColorHover}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColorHover}"/>
+        </Style>
+
+        <Style Selector="Button#AddEntryButton:pointerover Path">
+            <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColorHover}"/>
+        </Style>
+        
+        <Style Selector="Button#AddEntryButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColorPressed}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColorPressed}"/>
+        </Style>
+
+        <Style Selector="Button#AddEntryButton:pressed Path">
+            <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColorPressed}"/>
+        </Style>
+        
+        <!-- Total time -->
+        <Style Selector="TextBlock#TotalTimeText">
+            <Setter Property="Foreground" Value="{DynamicResource TotalTimeColor}"/>
+            <Setter Property="FontSize" Value="{DynamicResource TotalTimeFontSize}"/>
+            <Setter Property="Margin" Value="{DynamicResource TotalTimeMargin}"/>
+        </Style>
+        
+        
+        <!-- NOT THEMEABLE -->
+        <!-- Active entry area -->
+        <Style Selector="Border#ActiveEntryArea > Grid > StackPanel">
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
+        <Style Selector="Border#ActiveEntryArea > Grid > StackPanel:nth-last-child(1)">
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        
+        <!-- Active entry description -->
+        <Style Selector="TextBox#ActiveEntryDescription">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="TextBox#ActiveEntryDescription /template/ TextBlock#PART_Watermark">
+            <Setter Property="FontFamily" Value="{StaticResource StandardFontItalic}"/>
+        </Style>
+        
+        <!-- Active entry elapsed time -->
+        <Style Selector="TextBlock#ActiveEntryElapsedTime">
+            <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+        </Style>
+        
+        <!-- Active entry start time -->
+        <Style Selector="TextBlock#ActiveEntryStartTime">
+            <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+        </Style>
+        
+        <!-- Date picker -->
+        <Style Selector="Button#DatePickerButton TextBlock#DatePickerButtonText">
+            <Setter Property="FontFamily" Value="{StaticResource StandardFontBold}"/>
+        </Style>
+        
+        <!-- Total time -->
+        <Style Selector="TextBlock#TotalTimeText">
+            <Setter Property="FontFamily" Value="{StaticResource StandardFontBold}"/>
+        </Style>
+
+        
+    </Window.Styles>
+    
+
+    <Grid>
+        <TextBlock Text="µtimes" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   IsVisible="{Binding IsLoading}"/>
+        
+        <Grid RowDefinitions="Auto, Auto, *, Auto"
+              IsVisible="{Binding !IsLoading}">
+            <Border Grid.Row="0"
+                    x:Name="ActiveEntryArea">
+                <Grid ColumnDefinitions="*, Auto, Auto">
+                    <StackPanel Grid.Column="0"
+                                VerticalAlignment="Center">
+                        <TextBox x:Name="ActiveEntryDescription"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="False"
+                                 AcceptsTab="False"
+                                 Watermark="No description..."
+                                 Text="{Binding ActiveEntry.Description}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" 
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding ActiveEntry.IsRunning}">
+                        <TextBlock x:Name="ActiveEntryElapsedTime"
+                                   Text="{Binding ActiveEntry.ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}"/>
+                        <TextBlock x:Name="ActiveEntryStartTime"
+                                   Text="{Binding ActiveEntry.StartTime}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center">
+                        <Button Classes="ActiveEntryToggleButton"
+                                Command="{Binding StartActiveEntryCommand}"
+                                IsVisible="{Binding ActiveEntry.IsNotStarted}"
+                                ToolTip.Tip="Start">
+                            <Border>
+                                <Viewbox>
+                                    <Path Height="24" Width="24" Data="{DynamicResource PlayIcon}" />
+                                </Viewbox>
+                            </Border>
+                        </Button>
+                        <Button Classes="ActiveEntryToggleButton"
+                                ToolTip.Tip="Stop"
+                                Command="{Binding StopActiveEntryCommand}"
+                                IsVisible="{Binding ActiveEntry.IsRunning}">
+                            <Border>
+                                <Viewbox>
+                                    <Path Height="24" Width="24" Data="{DynamicResource StopIcon}" />
+                                </Viewbox>
+                            </Border>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
             
-            <StackPanel Grid.Column="1" IsVisible="{Binding ActiveEntry.IsRunning}">
-                <TextBlock Text="{Binding ActiveEntry.ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}"/>
-                <TextBlock Text="{Binding ActiveEntry.StartTime}"/>
-            </StackPanel>
+            <Grid Grid.Row="1">
+                <Button x:Name="DatePickerButton"
+                        HorizontalAlignment="Center" 
+                        Click="Button_OnClick">
+                    <Button.Content>
+                        <Grid>
+                            <!-- 
+                                The "real" datepicker is hidden so we can use it's functionality without going 
+                                through the hassle of re-styling it (that's apparently pretty difficult) 
+                            -->
+                            <CalendarDatePicker MinHeight="0"
+                                                Height="0"
+                                                MinWidth="0"
+                                                Width="0"
+                                                x:Name="InnerDatePicker"
+                                                VerticalAlignment="Bottom"
+                                                HorizontalAlignment="Center"
+                                                SelectedDate="{Binding SelectedDay}"/>
+                            <TextBlock x:Name="DatePickerButtonText"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding SelectedDay, StringFormat={StaticResource DateFormat}}"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+     
+            </Grid>
             
-            <StackPanel Grid.Column="2">
-                <Button Content="Start"
-                        Command="{Binding StartActiveEntryCommand}"
-                        IsVisible="{Binding ActiveEntry.IsNotStarted}"/>
-                <Button Content="Stop"
-                        Command="{Binding StopActiveEntryCommand}"
-                        IsVisible="{Binding ActiveEntry.IsRunning}"/>
-            </StackPanel>
-        </Grid>
-        
-        <Grid Grid.Row="1">
-            <CalendarDatePicker SelectedDate="{Binding SelectedDay}"/>
-        </Grid>
-        
-        <!-- Task list section -->
-        <Grid Grid.Row="2">
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding OtherEntriesToday.Entries}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid Margin="2"
-                                      ColumnDefinitions="*, Auto, Auto">
-                                    <TextBox Grid.Column="0" 
-                                             Watermark="No description..."
-                                             Text="{Binding Description}"/>
-                                    
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}" 
-                                                   IsVisible="{Binding IsFinished}"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBox Text="{Binding StartTime, Converter={StaticResource TimeOnlyStringConverter}}"
-                                                     GotFocus="TimeInput_OnFocus"/>
-                                            <TextBlock Text=" - "/>
-                                            <TextBox Text="{Binding EndTime, Converter={StaticResource TimeOnlyStringConverter}}"
-                                                     GotFocus="TimeInput_OnFocus"/>
+            <ScrollViewer Grid.Row="2"
+                          HorizontalScrollBarVisibility="Hidden" 
+                          VerticalScrollBarVisibility="Visible">
+                <Grid RowDefinitions="*, Auto">
+                    <ItemsControl Grid.Row="0"
+                                  ItemsSource="{Binding OtherEntriesToday.Entries}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid Margin="2"
+                                          ColumnDefinitions="*, Auto, Auto">
+                                        <TextBox Grid.Column="0" 
+                                                 Watermark="No description..."
+                                                 AcceptsReturn="False"
+                                                 AcceptsTab="False"
+                                                 TextWrapping="Wrap"
+                                                 Text="{Binding Description}"/>
+                                        
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding ElapsedTime, StringFormat={StaticResource TimeSpanFormat}}" 
+                                                       IsVisible="{Binding IsFinished}"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBox Text="{Binding StartTime, Converter={StaticResource TimeOnlyStringConverter}}"
+                                                         GotFocus="TimeInput_OnFocus"/>
+                                                <TextBlock Text=" - "/>
+                                                <TextBox Text="{Binding EndTime, Converter={StaticResource TimeOnlyStringConverter}}"
+                                                         GotFocus="TimeInput_OnFocus"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="2" 
-                                                Orientation="Horizontal">
-                                        <Button Content="Restart"
-                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).RestartEntryCommand}"
-                                                CommandParameter="{Binding}"
-                                                IsVisible="{Binding IsFinished}"/>
-                                        <Button Content="Start" 
-                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).StartEntryCommand}"
-                                                CommandParameter="{Binding }"
-                                                IsVisible="{Binding IsNotStarted}"/>
-                                        <Button Content="Resume"
-                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).ResumeEntryCommand}"
-                                                CommandParameter="{Binding}"
-                                                IsVisible="{Binding IsRunning}"/>
-                                        <Button Content="Delete"
-                                                Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).DeleteEntryCommand}"
-                                                CommandParameter="{Binding}"/>
-                                    </StackPanel>
+                                        
+                                        <StackPanel Grid.Column="2" 
+                                                    Orientation="Horizontal">
+                                            
+                                            <Menu>
+                                                <MenuItem>
+                                                    <MenuItem.Header>
+                                                        <Border>
+                                                            <Viewbox>
+                                                                <Path Height="24" Width="24" Data="{DynamicResource MenuIcon}" />
+                                                            </Viewbox>
+                                                        </Border>
+                                                    </MenuItem.Header>
+                                                    
+                                                    <MenuItem Header="Restart"
+                                                              Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).RestartEntryCommand}"
+                                                              CommandParameter="{Binding}"
+                                                              IsVisible="{Binding IsFinished}"/>
+                                                    <MenuItem Header="Start" 
+                                                              Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).StartEntryCommand}"
+                                                              CommandParameter="{Binding }"
+                                                              IsVisible="{Binding IsNotStarted}"/>
+                                                    <MenuItem Header="Resume"
+                                                              Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).ResumeEntryCommand}"
+                                                              CommandParameter="{Binding}"
+                                                              IsVisible="{Binding IsRunning}"/>
+                                                    <MenuItem Header="Delete"
+                                                              Command="{Binding ElementName=MainWindowElement, Path=((vm:MainWindowViewModel)DataContext).DeleteEntryCommand}"
+                                                              CommandParameter="{Binding}"/>
+                                                </MenuItem>
+                                            </Menu>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border BorderThickness="2" 
+                                            BorderBrush="Yellow" 
+                                            IsHitTestVisible="False" 
+                                            IsVisible="{Binding IsRunning}"
+                                            Background="Transparent"/>
+                                    <Border BorderThickness="2" 
+                                            BorderBrush="Red" 
+                                            IsHitTestVisible="False" 
+                                            IsVisible="{Binding !IsValid}"
+                                            Background="Transparent"/>
                                 </Grid>
-                                <Border BorderThickness="2" 
-                                        BorderBrush="Yellow" 
-                                        IsHitTestVisible="False" 
-                                        IsVisible="{Binding IsRunning}"
-                                        Background="Transparent"/>
-                                <Border BorderThickness="2" 
-                                        BorderBrush="Red" 
-                                        IsHitTestVisible="False" 
-                                        IsVisible="{Binding !IsValid}"
-                                        Background="Transparent"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Border Grid.Row="1"
+                            Height="{Binding ElementName=AddEntryButton, Path=Height}"/>
+                </Grid>
             </ScrollViewer>
+
+            <StackPanel Grid.Row="3" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <TextBlock x:Name="TotalTimeText"
+                           Text="{Binding OtherEntriesToday.TotalTime, StringFormat={StaticResource TimeSpanFormat}}"/>
+            </StackPanel>
         </Grid>
         
-        <StackPanel Grid.Row="3" 
-                    Orientation="Horizontal">
-            <Button Content="Add"
-                    Command="{Binding AddTodoEntryCommand}"/>
-            <TextBlock>
-                <Run Text="Total time:"/>
-                <Run Text="{Binding OtherEntriesToday.TotalTime, StringFormat={StaticResource TimeSpanFormat}}"/>
-            </TextBlock>
-        </StackPanel>
+        <Button x:Name="AddEntryButton"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                ToolTip.Tip="Add"
+                Command="{Binding AddTodoEntryCommand}">
+            <Border>
+                <Viewbox>
+                    <Path Height="24" Width="24" Data="{DynamicResource AddIcon}" />
+                </Viewbox>
+            </Border>
+        </Button>
     </Grid>
 </Window>

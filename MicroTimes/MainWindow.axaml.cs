@@ -1,7 +1,8 @@
-using Avalonia;
+using System;
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.ReactiveUI;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
 
 namespace MicroTimes;
@@ -22,5 +23,10 @@ public partial class MainWindow : Window
                 textBox.SelectAll();
             });
         }
+    }
+
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        InnerDatePicker.IsDropDownOpen = !InnerDatePicker.IsDropDownOpen;
     }
 }

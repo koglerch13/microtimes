@@ -27,8 +27,14 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
     private DayViewModel _otherEntriesToday;
     private TimeEntryViewModel _activeEntry;
     private DateTime _selectedDay;
+    private bool _isLoading;
     private string? _filePath;
 
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => this.RaiseAndSetIfChanged(ref _isLoading, value);
+    }
 
     public DateTime SelectedDay
     {
@@ -214,6 +220,7 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
 
     private async Task LoadEntries()
     {
+        IsLoading = true;
         _filePath = await OpenFile();
         _timeEntryCollection = await _parser.ParseFile(_filePath);
 
@@ -224,6 +231,7 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
             .Subscribe(OnTimeEntryCollectionChanged);
 
         OtherEntriesToday = _timeEntryCollection.GetForDate(TODAY);
+        IsLoading = false;
     }
 
     private void OnTimeEntryCollectionChanged(EventPattern<EventArgs>e )
@@ -236,15 +244,11 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
 
     private async Task<string> OpenFile()
     {
-        var allowedFileType = new FilePickerFileType(".txt files")
-        {
-            Patterns = new []{ "*.txt" }
-        };
         var result = await _mainWindow.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             SuggestedStartLocation = null, 
             AllowMultiple = false, 
-            FileTypeFilter = new []{ allowedFileType }
+            FileTypeFilter = new []{ FilePickerFileTypes.TextPlain }
         });
 
         if (result.Count != 1)

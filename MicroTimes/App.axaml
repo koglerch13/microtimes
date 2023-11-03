@@ -8,4 +8,9 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+     <Application.Resources>
+         <FontFamily x:Key="StandardFont">/Assets/fonts/OpenSans-Regular.ttf#Open Sans</FontFamily>
+         <FontFamily x:Key="StandardFontBold">/Assets/fonts/OpenSans-Bold.ttf#Open Sans</FontFamily>
+         <FontFamily x:Key="StandardFontItalic">/Assets/fonts/OpenSans-Italic.ttf#Open Sans</FontFamily>
+     </Application.Resources>
 </Application>
