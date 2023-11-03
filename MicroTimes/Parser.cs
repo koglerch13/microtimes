@@ -11,9 +11,15 @@ public class Parser
 {
     private static readonly Regex LineRegex = new(@"(\d\d\.\d\d\.\d\d\d\d)\s+(\d\d:\d\d\s+)?(\d\d:\d\d\s+)?(.*)");
 
-    public async Task WriteFile(TimeEntryCollection timeEntryCollection, string path)
+    public async Task WriteFile(TimeEntryViewModel activeTimeEntry, TimeEntryCollection timeEntryCollection, string path)
     {
         var allLines = CreateLines(timeEntryCollection);
+        if (activeTimeEntry.IsRunning)
+        {
+            var activeEntryLine = CreateLine(activeTimeEntry);
+            allLines.Add(activeEntryLine);
+        }
+        
         await File.WriteAllLinesAsync(path, allLines);
     }
 

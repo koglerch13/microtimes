@@ -239,7 +239,7 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
         if (_filePath == null || !File.Exists(_filePath))
             return;
         
-        _ = _parser.WriteFile(_timeEntryCollection, _filePath);
+        _ = _parser.WriteFile(ActiveEntry, _timeEntryCollection, _filePath);
     }
 
     private async Task<string> OpenFile()
