@@ -330,6 +330,7 @@
                                  AcceptsReturn="False"
                                  AcceptsTab="False"
                                  Watermark="No description..."
+                                 TextChanged="TextBox_OnTextChanged"
                                  Text="{Binding ActiveEntry.Description}"/>
                     </StackPanel>
                     
@@ -371,7 +372,7 @@
             <Grid Grid.Row="1">
                 <Button x:Name="DatePickerButton"
                         HorizontalAlignment="Center" 
-                        Click="Button_OnClick">
+                        Click="DatePickerButton_OnClick">
                     <Button.Content>
                         <Grid>
                             <!-- 
@@ -412,6 +413,7 @@
                                                  AcceptsReturn="False"
                                                  AcceptsTab="False"
                                                  TextWrapping="Wrap"
+                                                 TextChanged="TextBox_OnTextChanged"
                                                  Text="{Binding Description}"/>
                                         
                                         <StackPanel Grid.Column="1">
@@ -419,10 +421,12 @@
                                                        IsVisible="{Binding IsFinished}"/>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBox Text="{Binding StartTime, Converter={StaticResource TimeOnlyStringConverter}}"
-                                                         GotFocus="TimeInput_OnFocus"/>
+                                                         GotFocus="TimeInput_OnFocus"
+                                                         TextChanged="TextBox_OnTextChanged"/>
                                                 <TextBlock Text=" - "/>
                                                 <TextBox Text="{Binding EndTime, Converter={StaticResource TimeOnlyStringConverter}}"
-                                                         GotFocus="TimeInput_OnFocus"/>
+                                                         GotFocus="TimeInput_OnFocus"
+                                                         TextChanged="TextBox_OnTextChanged"/>
                                             </StackPanel>
                                         </StackPanel>
                                         

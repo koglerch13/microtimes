@@ -2,7 +2,6 @@
 
 ## Basic functionality
 - Basic styling
-- Add line-wrapping to text input
 
 ## Later
 - Readme

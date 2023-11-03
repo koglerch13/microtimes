@@ -10,8 +10,6 @@ namespace MicroTimes;
 
 public class DayViewModel : ReactiveObject, IDisposable
 {
-    public event EventHandler? DataChanged;
-    
     public DateOnly Date { get; }
     private readonly ObservableCollection<TimeEntryViewModel> _entries;
     public TimeSpan TotalTime => CalculateTime();
@@ -71,7 +69,6 @@ public class DayViewModel : ReactiveObject, IDisposable
             .ForEach(item => item.PropertyChanged -= OnItemPropertyChanged);
         
         this.RaisePropertyChanged(nameof(TotalTime));
-        DataChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -83,8 +80,6 @@ public class DayViewModel : ReactiveObject, IDisposable
                 this.RaisePropertyChanged(nameof(TotalTime));
                 break;
         }
-        
-        DataChanged?.Invoke(this, EventArgs.Empty);
     }
     
     private TimeSpan CalculateTime()

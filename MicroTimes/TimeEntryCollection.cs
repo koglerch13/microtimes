@@ -5,29 +5,15 @@ using System.Diagnostics;
 
 namespace MicroTimes;
 
-public class TimeEntryCollection : IDisposable
+public class TimeEntryCollection
 {
-    public event EventHandler? Changed;
-    
     private readonly Dictionary<DateOnly, DayViewModel> _allTimeEntries;
 
     public TimeEntryCollection(Dictionary<DateOnly, DayViewModel> allTimeEntries)
     {
         _allTimeEntries = allTimeEntries;
-        foreach (var entry in _allTimeEntries)
-        {
-            entry.Value.DataChanged += OnDayChanged;
-        }
     }
-
-    public void Dispose()
-    {
-        foreach (var entry in _allTimeEntries)
-        {
-            entry.Value.DataChanged -= OnDayChanged;
-        }
-    }
-
+    
     public ReadOnlyDictionary<DateOnly, DayViewModel> GetAllEntries()
     {
         return _allTimeEntries.AsReadOnly();
@@ -56,15 +42,9 @@ public class TimeEntryCollection : IDisposable
         if (day == null)
         {
             day = new DayViewModel(date, new ObservableCollection<TimeEntryViewModel>());
-            day.DataChanged += OnDayChanged;
             _allTimeEntries[date] = day;
         }
 
         return day;
-    }
-    
-    private void OnDayChanged(object? sender, EventArgs e)
-    {
-        Changed?.Invoke(this, EventArgs.Empty);
     }
 }

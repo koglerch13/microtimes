@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -29,6 +30,7 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
     private DateTime _selectedDay;
     private bool _isLoading;
     private string? _filePath;
+    private readonly IDisposable _changeDetectionSubject;
 
     public bool IsLoading
     {
@@ -94,13 +96,15 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
         _mainWindow.Activated += OnMainWindowActivated;
         _mainWindow.Deactivated += OnMainWindowOnDeactivated;
 
+        _changeDetectionSubject = SubscribeToChanges();
+
         _ = LoadEntries();
     }
 
-
-    
     public void Dispose()
     {
+        _changeDetectionSubject.Dispose();
+        
         PropertyChanged -= OnPropertyChanged;
         _timer.Tick -= OnTimerTick;
         _mainWindow.Activated -= OnMainWindowActivated;
@@ -223,23 +227,44 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
         IsLoading = true;
         _filePath = await OpenFile();
         _timeEntryCollection = await _parser.ParseFile(_filePath);
-
-        Observable.FromEventPattern<EventHandler, EventArgs>(
-            h => _timeEntryCollection.Changed += h,
-            h => _timeEntryCollection.Changed -= h)
-            .Throttle(TimeSpan.FromMilliseconds(500))
-            .Subscribe(OnTimeEntryCollectionChanged);
-
+        
         OtherEntriesToday = _timeEntryCollection.GetForDate(TODAY);
         IsLoading = false;
     }
+    
+    private IDisposable SubscribeToChanges()
+    {
+        var userInput = Observable.FromEventPattern<EventHandler, EventArgs>(
+                h => _mainWindow.UserInput += h,
+                h => _mainWindow.UserInput -= h)
+            .Select(_ => Unit.Default);
+            
+        var propertyChanged = Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                h => PropertyChanged += h,
+                h => PropertyChanged -= h)
+            .Select(_ => Unit.Default);
+            
+        var commandTriggered = Observable.Merge(
+            StartActiveEntryCommand,
+            StopActiveEntryCommand,
+            RestartEntryCommand,
+            StartEntryCommand,
+            ResumeEntryCommand,
+            DeleteEntryCommand,
+            AddTodoEntryCommand);
+                
+        return Observable.Merge(userInput, propertyChanged, commandTriggered)
+            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Select(_ => SaveChanges().ToObservable())
+            .Subscribe();
+    }
 
-    private void OnTimeEntryCollectionChanged(EventPattern<EventArgs>e )
+    private async Task SaveChanges()
     {
         if (_filePath == null || !File.Exists(_filePath))
             return;
         
-        _ = _parser.WriteFile(ActiveEntry, _timeEntryCollection, _filePath);
+        await _parser.WriteFile(ActiveEntry, _timeEntryCollection, _filePath);
     }
 
     private async Task<string> OpenFile()
