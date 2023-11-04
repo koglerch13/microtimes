@@ -1,0 +1,314 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <!-- Main area -->
+    <Style Selector="Grid#MainGrid">
+        <Setter Property="Background" Value="{DynamicResource MainAreaBackgroundColor}"/>
+    </Style>
+    
+    <!-- Active entry area -->
+    <Style Selector="Border#ActiveEntryArea">
+        <Setter Property="Background" Value="{DynamicResource ActiveAreaBackgroundColor}"/>
+        <Setter Property="Padding" Value="{DynamicResource ActiveAreaPadding}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ActiveAreaBorderColor}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ActiveAreaBorder}"/>
+    </Style>
+    
+    <!-- Active entry description -->
+    <Style Selector="TextBox#ActiveEntryDescription">
+        <Setter Property="Height" Value="{DynamicResource ActiveDescriptionHeight}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource ActiveDescriptionSelectionBackgroundColor}"/>
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource ActiveDescriptionSelectionColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource ActiveDescriptionFontSize}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource ActiveDescriptionColor}"/>
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription:pointerover">
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription:focus">
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionColor}"/>
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription:pointerover /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription:focus /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource ActiveDescriptionPlaceholderColor}" />
+    </Style>
+    
+    <!-- Active entry elapsed time -->
+    <Style Selector="TextBlock#ActiveEntryElapsedTime">
+        <Setter Property="FontSize" Value="{DynamicResource ActiveElapsedTimeFontSize}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ActiveElapsedTimeColor}"/>
+    </Style>
+    
+    <!-- Active entry start time -->
+    <Style Selector="TextBlock#ActiveEntryStartTime">
+        <Setter Property="FontSize" Value="{DynamicResource ActiveStartTimeFontSize}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ActiveStartTimeColor}"/>
+    </Style>
+    
+    <!-- Active entry toggle button -->
+    <Style Selector="Button.ActiveEntryToggleButton">
+        <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColor}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource ActiveToggleButtonRadius}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ActiveToggleButtonBorder}"/>
+        <Setter Property="Padding" Value="{DynamicResource ActiveToggleButtonPadding}"/>
+        <Setter Property="Height" Value="{DynamicResource ActiveToggleButtonHeight}"/>
+        <Setter Property="Width" Value="{DynamicResource ActiveToggleButtonWidth}"/>
+    </Style>
+    <Style Selector="Button.ActiveEntryToggleButton Path">
+        <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColor}"/>
+    </Style>
+    
+    <Style Selector="Button.ActiveEntryToggleButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColorHover}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColorHover}"/>
+    </Style>
+
+    <Style Selector="Button.ActiveEntryToggleButton:pointerover Path">
+        <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColorHover}"/>
+    </Style>
+    
+    <Style Selector="Button.ActiveEntryToggleButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ActiveToggleButtonBackgroundColorPressed}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ActiveToggleButtonBorderColorPressed}"/>
+    </Style>
+
+    <Style Selector="Button.ActiveEntryToggleButton:pressed Path">
+        <Setter Property="Fill" Value="{DynamicResource ActiveToggleButtonColorPressed}"/>
+    </Style>
+    
+    <!-- Date picker -->
+    <Style Selector="Button#DatePickerButton">
+        <Setter Property="Margin" Value="{DynamicResource SelectedDayButtonMargin}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SelectedDayButtonRadius}"/>
+        <Setter Property="Padding" Value="{DynamicResource SelectedDayButtonPadding}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource SelectedDayButtonBorder}"/>
+        <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColor}"/>
+    </Style>
+    
+    <Style Selector="Button#DatePickerButton TextBlock#DatePickerButtonText">
+        <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource SelectedDayFontSize}"/>
+    </Style>
+    
+    <Style Selector="Button#DatePickerButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColorHover}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColorHover}"/>
+    </Style>
+    
+    <Style Selector="Button#DatePickerButton:pointerover TextBlock#DatePickerButtonText" >
+        <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColorHover}"/>
+    </Style>
+    
+    <Style Selector="Button#DatePickerButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SelectedDayButtonBackgroundColorPressed}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SelectedDayButtonBorderColorPressed}"/>
+    </Style>
+    
+    <Style Selector="Button#DatePickerButton:pointerover TextBlock#DatePickerButtonText" >
+        <Setter Property="Foreground" Value="{DynamicResource SelectedDayButtonColorPressed}"/>
+    </Style>
+    
+    <!-- Add entry button -->
+     <Style Selector="Button#AddEntryButton">
+         <Setter Property="Margin" Value="{DynamicResource AddEntryButtonMargin}"/>
+         <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColor}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource AddEntryButtonRadius}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource AddEntryButtonBorder}"/>
+        <Setter Property="Padding" Value="{DynamicResource AddEntryButtonPadding}"/>
+        <Setter Property="Height" Value="{DynamicResource AddEntryButtonHeight}"/>
+        <Setter Property="Width" Value="{DynamicResource AddEntryButtonWidth}"/>
+    </Style>
+    <Style Selector="Button#AddEntryButton Path">
+        <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColor}"/>
+    </Style>
+    
+    <Style Selector="Button#AddEntryButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColorHover}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColorHover}"/>
+    </Style>
+
+    <Style Selector="Button#AddEntryButton:pointerover Path">
+        <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColorHover}"/>
+    </Style>
+    
+    <Style Selector="Button#AddEntryButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AddEntryButtonBackgroundColorPressed}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AddEntryButtonBorderColorPressed}"/>
+    </Style>
+
+    <Style Selector="Button#AddEntryButton:pressed Path">
+        <Setter Property="Fill" Value="{DynamicResource AddEntryButtonColorPressed}"/>
+    </Style>
+    
+    <!-- Total time -->
+    <Style Selector="TextBlock#TotalTimeText">
+        <Setter Property="Foreground" Value="{DynamicResource TotalTimeColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TotalTimeFontSize}"/>
+        <Setter Property="Margin" Value="{DynamicResource TotalTimeMargin}"/>
+    </Style>
+    
+    <!-- Entries -->
+    <Style Selector="Border.EntryArea">
+        <Setter Property="Background" Value="{DynamicResource EntryBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource EntryBorderColor}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource EntryBorder}"/>
+        <Setter Property="Padding" Value="{DynamicResource EntryPadding}"/>
+        <Setter Property="Margin" Value="{DynamicResource EntryMargin}"/>
+    </Style>
+    
+    <Style Selector="TextBox.EntryDescription">
+        <Setter Property="Height" Value="{DynamicResource EntryDescriptionHeight}"/>
+        <Setter Property="Foreground" Value="{DynamicResource EntryDescriptionColor}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource EntryDescriptionSelectionBackgroundColor}"/>
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource EntryDescriptionSelectionColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource EntryDescriptionFontSize}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource EntryDescriptionColor}"/>
+    </Style>
+    <Style Selector="TextBox.EntryDescription /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryDescriptionPlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox.EntryDescription:pointerover /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryDescriptionPlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox.EntryDescription:focus /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryDescriptionPlaceholderColor}" />
+    </Style>
+    
+    <Style Selector="TextBlock.EntryElapsedTime">
+        <Setter Property="Foreground" Value="{DynamicResource EntryElapsedTimeColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource EntryElapsedTimeFontSize}"/>
+    </Style>
+    
+    <Style Selector="TextBox.EntryStartEndTime">
+        <Setter Property="Foreground" Value="{DynamicResource EntryStartEndTimeColor}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource EntryStartEndTimeSelectionBackgroundColor}"/>
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource EntryStartEndTimeSelectionColor}"/>
+        <Setter Property="FontSize" Value="{DynamicResource EntryStartEndTimeFontSize}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource EntryStartEndTimeColor}"/>
+    </Style>
+    <Style Selector="TextBox.EntryStartEndTime /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryStartEndTimePlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox.EntryStartEndTime:pointerover /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryStartEndTimePlaceholderColor}" />
+    </Style>
+    <Style Selector="TextBox.EntryStartEndTime:focus /template/ TextBlock#PART_Watermark">
+        <Setter Property="Foreground" Value="{DynamicResource EntryStartEndTimePlaceholderColor}" />
+    </Style>
+    
+    <Style Selector="Menu.EntryMoreOptionsMenu">
+        <Setter Property="Height" Value="{DynamicResource EntryMoreOptionsSize}"/>
+        <Setter Property="Width" Value="{DynamicResource EntryMoreOptionsSize}"/>
+        <Setter Property="Margin" Value="{DynamicResource EntryMoreOptionsMargin}"/>
+    </Style>
+    <Style Selector="MenuItem.EntryMoreOptionsButton Path">
+        <Setter Property="Fill" Value="{DynamicResource EntryMoreOptionsColor}" />
+    </Style>
+    
+    <Style Selector="MenuItem.EntryMoreOptionsButton:pointerover Path">
+        <Setter Property="Fill" Value="{DynamicResource EntryMoreOptionsColorHover}" />
+    </Style>
+    
+    <Style Selector="MenuItem.EntryMoreOptionsButton:pressed Path">
+        <Setter Property="Fill" Value="{DynamicResource EntryMoreOptionsColorPressed}" />
+    </Style>
+    
+    <Style Selector="MenuItem.EntryMoreOptionsButton:open Path">
+        <Setter Property="Fill" Value="{DynamicResource EntryMoreOptionsColorPressed}" />
+    </Style>
+    
+    
+    <!-- NOT THEMEABLE -->
+    <Style Selector="TextBox.InvisibleTextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="TextBox.InvisibleTextBox:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="TextBox.InvisibleTextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <!-- Active entry area -->
+    <Style Selector="Border#ActiveEntryArea > Grid > StackPanel">
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+    <Style Selector="Border#ActiveEntryArea > Grid > StackPanel:nth-last-child(1)">
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+    
+    <!-- Active entry description -->
+    <Style Selector="TextBox#ActiveEntryDescription">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    <Style Selector="TextBox#ActiveEntryDescription /template/ TextBlock#PART_Watermark">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFontItalic}"/>
+    </Style>
+    
+    <!-- Active entry elapsed time -->
+    <Style Selector="TextBlock#ActiveEntryElapsedTime">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    
+    <!-- Active entry start time -->
+    <Style Selector="TextBlock#ActiveEntryStartTime">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    
+    <!-- Date picker -->
+    <Style Selector="Button#DatePickerButton TextBlock#DatePickerButtonText">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFontBold}"/>
+    </Style>
+    
+    <!-- Total time -->
+    <Style Selector="TextBlock#TotalTimeText">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFontBold}"/>
+    </Style>
+    
+    <!-- Entries -->
+    <Style Selector="TextBox.EntryDescription">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    <Style Selector="TextBox.EntryDescription /template/ TextBlock#PART_Watermark">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFontItalic}"/>
+    </Style>
+    
+    <Style Selector="TextBlock.EntryElapsedTime">
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    
+    <Style Selector="TextBox.EntryStartEndTime">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource StandardFont}"/>
+    </Style>
+    
+    <Style Selector="MenuItem.EntryMoreOptionsButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+    <Style Selector="MenuItem.EntryMoreOptionsButton:pointerover /template/ Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="MenuItem.EntryMoreOptionsButton:pressed /template/ Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="MenuItem.EntryMoreOptionsButton:open /template/ Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+</Styles>

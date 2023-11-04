@@ -1,0 +1,105 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:system="clr-namespace:System;assembly=netstandard"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+     <!-- Themeable vars: -->
+    <Color x:Key="MainAreaBackgroundColor">#fefffe</Color>
+
+    <Color x:Key="ActiveAreaBackgroundColor">#2f3137</Color>
+    <Color x:Key="ActiveAreaBorderColor">#2f3137</Color>
+    <Thickness x:Key="ActiveAreaBorder">0</Thickness>
+    <Thickness x:Key="ActiveAreaPadding">8, 10, 10, 10</Thickness>
+
+    <Color x:Key="ActiveDescriptionColor">#fefffe</Color>
+    <Color x:Key="ActiveDescriptionSelectionColor">#fefffe</Color>
+    <Color x:Key="ActiveDescriptionSelectionBackgroundColor">#ca7d7f</Color>
+    <system:Double x:Key="ActiveDescriptionFontSize">14</system:Double>
+    <system:Double x:Key="ActiveDescriptionHeight">54</system:Double>
+    <Color x:Key="ActiveDescriptionPlaceholderColor">#e1e1e1</Color>
+
+    <Color x:Key="ActiveElapsedTimeColor">#fefffe</Color>
+    <system:Double x:Key="ActiveElapsedTimeFontSize">27</system:Double>
+
+    <Color x:Key="ActiveStartTimeColor">#fefffe</Color>
+    <system:Double x:Key="ActiveStartTimeFontSize">12</system:Double>
+
+    <Thickness x:Key="ActiveToggleButtonBorder">0</Thickness>    
+    <Thickness x:Key="ActiveToggleButtonPadding">4</Thickness>    
+    <CornerRadius x:Key="ActiveToggleButtonRadius">30</CornerRadius>
+    <Color x:Key="ActiveToggleButtonColor">#fefffe</Color>
+    <Color x:Key="ActiveToggleButtonBackgroundColor">#d54e50</Color>
+    <Color x:Key="ActiveToggleButtonBorderColor">Transparent</Color>
+    <system:Double x:Key="ActiveToggleButtonWidth">54</system:Double>
+    <system:Double x:Key="ActiveToggleButtonHeight">54</system:Double>
+
+    <Color x:Key="ActiveToggleButtonColorHover">#fefffe</Color>
+    <Color x:Key="ActiveToggleButtonBackgroundColorHover">#ca7d7f</Color>
+    <Color x:Key="ActiveToggleButtonBorderColorHover">#ca7d7f</Color>
+
+    <Color x:Key="ActiveToggleButtonColorPressed">#fefffe</Color>
+    <Color x:Key="ActiveToggleButtonBackgroundColorPressed">#ca7d7f</Color>
+    <Color x:Key="ActiveToggleButtonBorderColorPressed">#ca7d7f</Color>
+
+    <Thickness x:Key="SelectedDayButtonBorder">0</Thickness>    
+    <Thickness x:Key="SelectedDayButtonPadding">4,2</Thickness>    
+    <Thickness x:Key="SelectedDayButtonMargin">0,4</Thickness>    
+    <CornerRadius x:Key="SelectedDayButtonRadius">2</CornerRadius>
+    <system:Double x:Key="SelectedDayFontSize">14</system:Double>
+
+    <Color x:Key="SelectedDayButtonColor">#4b4a4a</Color>
+    <Color x:Key="SelectedDayButtonBackgroundColor">#fefffe</Color>
+    <Color x:Key="SelectedDayButtonBorderColor">#fefffe</Color>
+    <Color x:Key="SelectedDayButtonColorHover">#4b4a4a</Color>
+    <Color x:Key="SelectedDayButtonBackgroundColorHover">#e1e1e1</Color>
+    <Color x:Key="SelectedDayButtonBorderColorHover">#fefffe</Color>
+    <Color x:Key="SelectedDayButtonColorPressed">#4b4a4a</Color>
+    <Color x:Key="SelectedDayButtonBackgroundColorPressed">#e1e1e1</Color>
+    <Color x:Key="SelectedDayButtonBorderColorPressed">#fefffe</Color>
+
+    <Thickness x:Key="AddEntryButtonBorder">0</Thickness>    
+    <Thickness x:Key="AddEntryButtonPadding">4</Thickness>    
+    <Thickness x:Key="AddEntryButtonMargin">8</Thickness>    
+    <CornerRadius x:Key="AddEntryButtonRadius">30</CornerRadius>
+    <system:Double x:Key="AddEntryButtonWidth">40</system:Double>
+    <system:Double x:Key="AddEntryButtonHeight">40</system:Double>
+
+    <Color x:Key="AddEntryButtonColor">#fefffe</Color>
+    <Color x:Key="AddEntryButtonBackgroundColor">#d54e50</Color>
+    <Color x:Key="AddEntryButtonBorderColor">#d54e50</Color>
+    <Color x:Key="AddEntryButtonColorHover">#fefffe</Color>
+    <Color x:Key="AddEntryButtonBackgroundColorHover">#ca7d7f</Color>
+    <Color x:Key="AddEntryButtonBorderColorHover">#ca7d7f</Color>
+    <Color x:Key="AddEntryButtonColorPressed">#fefffe</Color>
+    <Color x:Key="AddEntryButtonBackgroundColorPressed">#ca7d7f</Color>
+    <Color x:Key="AddEntryButtonBorderColorPressed">#ca7d7f</Color>
+
+    <Color x:Key="TotalTimeColor">#4b4a4a</Color>
+    <system:Double x:Key="TotalTimeFontSize">16</system:Double>
+    <Thickness x:Key="TotalTimeMargin">0,4,8,8</Thickness>    
+
+    <Color x:Key="EntryBackgroundColor">Transparent</Color>
+    <Color x:Key="EntryBorderColor">#e1e1e1</Color>
+
+    <Thickness x:Key="EntryBorder">0,0,0,1</Thickness>
+    <Thickness x:Key="EntryPadding">0,0,0,8</Thickness>
+    <Thickness x:Key="EntryMargin">8</Thickness>
+
+    <Color x:Key="EntryDescriptionColor">#4b4a4a</Color>
+    <Color x:Key="EntryDescriptionSelectionColor">#fefffe</Color>
+    <Color x:Key="EntryDescriptionSelectionBackgroundColor">#ca7d7f</Color>
+    <Color x:Key="EntryDescriptionPlaceholderColor">#e1e1e1</Color>
+    <Color x:Key="EntryElapsedTimeColor">#4b4a4a</Color>
+    <Color x:Key="EntryStartEndTimeColor">#4b4a4a</Color>
+    <Color x:Key="EntryStartEndTimeSelectionColor">#fefffe</Color>
+    <Color x:Key="EntryStartEndTimePlaceholderColor">#e1e1e1</Color>
+    <Color x:Key="EntryStartEndTimeSelectionBackgroundColor">#ca7d7f</Color>
+    <system:Double x:Key="EntryDescriptionHeight">50</system:Double>
+    <system:Double x:Key="EntryDescriptionFontSize">14</system:Double>
+    <system:Double x:Key="EntryElapsedTimeFontSize">22</system:Double>
+    <system:Double x:Key="EntryStartEndTimeFontSize">12</system:Double>
+
+    <system:Double x:Key="EntryMoreOptionsSize">24</system:Double>
+    <Thickness x:Key="EntryMoreOptionsMargin">8,0,0,0</Thickness>
+    <Color x:Key="EntryMoreOptionsColor">#4b4a4a</Color>
+    <Color x:Key="EntryMoreOptionsColorHover">#e1e1e1</Color>
+    <Color x:Key="EntryMoreOptionsColorPressed">#e1e1e1</Color>
+</ResourceDictionary>

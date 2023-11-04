@@ -1,7 +1,7 @@
 # TODO
 
 ## Basic functionality
-- Basic styling
+- Lose selection when input focus is lost
 
 ## Later
 - Readme
