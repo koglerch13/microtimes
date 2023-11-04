@@ -8,7 +8,7 @@
         x:DataType="vm:MainWindowViewModel"
         xmlns:converter="clr-namespace:MicroTimes.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/icon.ico"
         Width="400"
         Height="600"
         x:Name="MainWindowElement"

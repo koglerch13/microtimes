@@ -5,8 +5,6 @@
 - show error when a task has an end but no start
 
 ## Later
-- Readme
-- Icon
 - Shortcuts
 - Style calendar
 - Lose selection when input focus is lost
