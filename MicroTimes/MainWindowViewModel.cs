@@ -119,8 +119,14 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
             return;
         
         ActiveEntry.Start();
-        
-        // TODO: focus description (if empty)
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (string.IsNullOrEmpty(ActiveEntry.Description))
+            {
+                _mainWindow.ActiveEntryDescription.Focus();
+            }
+        });
     }
 
     private void StopActiveEntry()
@@ -187,7 +193,8 @@ public class MainWindowViewModel : ReactiveObject, IDisposable
         var selectedDay = DateOnly.FromDateTime(SelectedDay);
         var newEntry = new TimeEntryViewModel(selectedDay);
         _timeEntryCollection.Add(newEntry);
-        // TODO: focus description
+        
+        _mainWindow.FocusNewTimeEntry();
     }
     
     private void OnTimerTick(object? sender, EventArgs e)

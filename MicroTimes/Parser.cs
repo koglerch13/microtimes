@@ -14,7 +14,7 @@ public class Parser
     public async Task WriteFile(TimeEntryViewModel activeTimeEntry, TimeEntryCollection timeEntryCollection, string path)
     {
         var allLines = CreateLines(timeEntryCollection);
-        if (activeTimeEntry.IsRunning)
+        if (IsEntryWorthSaving(activeTimeEntry))
         {
             var activeEntryLine = CreateLine(activeTimeEntry);
             allLines.Add(activeEntryLine);
@@ -43,6 +43,7 @@ public class Parser
     {
         var entries = day
             .Entries
+            .Where(IsEntryWorthSaving)
             .OrderBy(x => x.StartTime);
         
         var lines = new List<string>();
@@ -53,6 +54,13 @@ public class Parser
         }
 
         return lines;
+    }
+
+    private bool IsEntryWorthSaving(TimeEntryViewModel timeEntryViewModel)
+    {
+        return timeEntryViewModel.StartTime.HasValue 
+               || timeEntryViewModel.EndTime.HasValue 
+               || !string.IsNullOrEmpty(timeEntryViewModel.Description);
     }
 
     private string CreateLine(TimeEntryViewModel timeEntryViewModel)

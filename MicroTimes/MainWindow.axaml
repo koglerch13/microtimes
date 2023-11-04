@@ -60,7 +60,9 @@
                                  AcceptsReturn="False"
                                  AcceptsTab="False"
                                  Watermark="No description..."
+                                 LostFocus="ActiveEntryDescription_OnLostFocus"
                                  TextChanged="TextBox_OnTextChanged"
+                                 KeyUp="ActiveEntryDescription_OnKeyUp"
                                  Text="{Binding ActiveEntry.Description}"/>
                     </StackPanel>
                     
@@ -136,7 +138,7 @@
                                   ItemsSource="{Binding OtherEntriesToday.Entries}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Classes="EntryArea">
+                                <Border Loaded="Control_OnLoaded" Classes="EntryArea">
                                     <Grid Margin="2"
                                           ColumnDefinitions="*, Auto, Auto"
                                           HorizontalAlignment="Stretch">

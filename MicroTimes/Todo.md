@@ -1,13 +1,15 @@
 # TODO
 
 ## Basic functionality
-- Lose selection when input focus is lost
+- Show hint when another task in the list is currently running
+- show error when a task has an end but no start
 
 ## Later
 - Readme
 - Icon
 - Shortcuts
 - Style calendar
+- Lose selection when input focus is lost
 
 ## Maybe
 - Group items with same description
