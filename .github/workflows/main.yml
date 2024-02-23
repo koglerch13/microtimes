@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy-to-github-releases:
+    permissions: write-all
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: 7.0.x
+
+      - name: Publish application
+        run: dotnet publish MicroTimes/MicroTimes.csproj -c Release -o publish -r win-x64 --self-contained true
+
+      - name: Zip package
+        run: Compress-Archive -Path publish/* -Destination MicroTimes_${{ github.event.release.tag_name }}.zip
+      
+      - name: Publish package
+        run: gh release upload ${{ github.event.release.tag_name }} MicroTimes_${{ github.event.release.tag_name }}.zip
+        env: 
+          GITHUB_TOKEN: ${{ github.TOKEN }}
